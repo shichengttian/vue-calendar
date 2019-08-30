@@ -1,10 +1,10 @@
 <style scoped>
-@media screen and (min-width: 460px) {
+/* @media screen and (min-width: 460px) {
   .wh_item_date:hover {
     background: #71c7a5;
     cursor: pointer;
   }
-}
+} */
 * {
   margin: 0;
   padding: 0;
@@ -82,15 +82,17 @@ wh_content_item_tag {
 }
 
 .wh_item_date {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  /* width: 40px; */
+  height: 100%;
+  /* line-height: 40px; */
   margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
+.wh_item_date p{
+  padding-top: 20px;
+}
 .wh_jiantou1 {
   width: 12px;
   height: 12px;
@@ -111,11 +113,14 @@ wh_content_item_tag {
   border-right: 2px solid #ffffff;
   transform: rotate(45deg);
 }
-.wh_content_item > .wh_isMark {
-  margin: auto;
-  border-radius: 100px;
-  background: blue;
-  z-index: 2;
+.red .dot{
+  background-color: #e3784e;
+}
+.blue .dot{
+  background-color: #4a98e2;
+}
+.dot{
+  cursor: pointer;
 }
 .wh_content_item .wh_other_dayhide {
   color: #bfbfbf;
@@ -123,13 +128,14 @@ wh_content_item_tag {
 .wh_content_item .wh_want_dayhide {
   color: #bfbfbf;
 }
-.wh_content_item .wh_isToday {
+/* .wh_content_item .wh_isToday {
   background: yellow;
   border-radius: 100px;
-}
+} */
 .wh_content_item .wh_chose_day {
-  background: green;
-  border-radius: 100px;
+  color: #4A98E2;
+  /* background: green;
+  border-radius: 100px; */
 }
 </style>
 <template>
@@ -150,12 +156,13 @@ wh_content_item_tag {
         </div>
       </div>
       <div class="wh_content">
-        <div class="wh_content_item" v-for="(item,index) in list" @click="clickDay(item,index)">
+        <div class="wh_content_item" v-for="(item,index) in list">
           <div
             class="wh_item_date"
             v-bind:class="[{ wh_isMark: item.isMark},{wh_other_dayhide:item.otherMonth!=='nowMonth'},{wh_want_dayhide:item.dayHide},{wh_isToday:item.isToday},{wh_chose_day:item.chooseDay},setClass(item)]"
-          >{{item.id}}
-          <span class="dot"></span></div>
+          >
+          <p>{{item.id}}</p>
+          <span v-show="item.otherMonth=='nowMonth'" class="dot" @click="clickDay(item,index)"></span></div>
         </div>
       </div>
     </div>
@@ -341,3 +348,4 @@ export default {
   }
 };
 </script>
+
